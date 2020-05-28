@@ -20,7 +20,7 @@ int basicServerExample()
 
 	if (pipePtr == NULL)
 	{
-		printf("[X] Failed to allocate memory for pipe");
+		printf("[X] Failed to allocate memory for pipe \n");
 
 		return EXET_CODE_ERROR;
 	}
@@ -29,22 +29,28 @@ int basicServerExample()
 
 	if (opStatus != Success)
 	{
-		printf("[X] CreateSyncPipe failed with error [%d]", opStatus);
+		printf("[X] CreateSyncPipe failed with error [%d] \n", opStatus);
 	}
 
 	ConnectNamedPipe(pipePtr->handle, NULL);
 
-	for (unsigned int i = 0; i < 10; i++)
+	for (unsigned int i = 0; i < 100; i++)
 	{
-		DWORD butesWritten;
+		DWORD bytesWritten;
 		PipeOperationStatus opStatus = 0;
 
-		opStatus = WriteBuffer(pipePtr, (char*)&i, sizeof(unsigned int), &butesWritten);
+		opStatus = WriteBuffer(pipePtr, (char*)&i, sizeof(unsigned int), &bytesWritten);
 
 		if (opStatus != Success)
 		{
-			printf("[X] WriteBuffer failed with error [%d]", opStatus);
+			printf("[X] WriteBuffer failed with error [%d] \n", opStatus);
 		}
+
+		else
+		{
+			printf("[V] Written [%d] bytes \n", bytesWritten);
+		}
+
 	}
 	
 	DisconnectPipe(pipePtr);

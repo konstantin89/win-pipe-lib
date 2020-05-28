@@ -36,7 +36,7 @@ PipeOperationStatus CreateSyncPipe(LPCWSTR pipeName, DWORD bufferSize, PPipe pip
 	return Success;
 }
 
-PipeOperationStatus OpenPipe(LPCWSTR pipeName, PPipe pipe)
+PipeOperationStatus OpenPipeWrapper(LPCWSTR pipeName, PPipe pipe)
 {
 	if (pipe == NULL)
 	{
@@ -162,6 +162,23 @@ PipeOperationStatus ReadBuffer(PPipe pipe, char* buf, DWORD bufferLen, PDWORD by
 		NULL);
 
 	if (writeReturnValue == 0)
+	{
+		return GenericError;
+	}
+
+	return Success;
+}
+
+PipeOperationStatus ClosePipeWrapper(PPipe pipe)
+{
+	if (pipe == NULL)
+	{
+		return InvalidParam;
+	}
+
+	BOOL returnCode = CloseHandle(pipe->handle);
+
+	if (returnCode == 0)
 	{
 		return GenericError;
 	}

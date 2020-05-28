@@ -7,7 +7,9 @@ PipeOperationStatus CreateSyncPipe(LPCWSTR pipeName, DWORD bufferSize, PPipe pip
 
 PipeOperationStatus DisconnectPipe(PPipe pipe);
 
-PipeOperationStatus OpenPipe(LPCWSTR pipeName, PPipe pipe);
+PipeOperationStatus OpenPipeWrapper(LPCWSTR pipeName, PPipe pipe);
+
+PipeOperationStatus ClosePipeWrapper(PPipe pipe);
 
 PipeOperationStatus WriteBuffer(PPipe pipe, char* buf, DWORD bufferLen, PDWORD bytesWritten);
 
