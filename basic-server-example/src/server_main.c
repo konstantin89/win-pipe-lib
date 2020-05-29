@@ -5,8 +5,8 @@
 #include "pipe_wrapper.h"
 #include "pipe_operation_status.h"
 
-#define EXET_CODE_ERROR 1
-#define EXET_CODE_SUCCESS 0
+#define EXIT_CODE_ERROR 1
+#define EXIT_CODE_SUCCESS 0
 
 #define BASIC_SERVER_PIPE_NAME L"\\\\.\\pipe\\basic-server-pipe"
 #define PIPE_BUFFER_SIZE 64
@@ -22,7 +22,7 @@ int basicServerExample()
 	{
 		printf("[X] Failed to allocate memory for pipe \n");
 
-		return EXET_CODE_ERROR;
+		return EXIT_CODE_ERROR;
 	}
 
 	opStatus = CreateSyncPipe(BASIC_SERVER_PIPE_NAME, PIPE_BUFFER_SIZE, pipePtr);
@@ -55,7 +55,7 @@ int basicServerExample()
 	
 	DisconnectPipe(pipePtr);
 
-	return EXET_CODE_SUCCESS;
+	return EXIT_CODE_SUCCESS;
 }
 
 int main()
